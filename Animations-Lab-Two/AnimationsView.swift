@@ -9,44 +9,92 @@
 import UIKit
 
 class AnimationsView: UIView {
-    
-    public lazy var buttonStack: UIStackView = {
-       let stack = UIStackView()
+    //MARK: Objects
+    public lazy var animationButtonsStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: animationButtons())
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.alignment = .fill
+        stack.spacing = 5
+        stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-    
+    public lazy var resetAnimateButtonsStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: resetAnimateButtons())
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.alignment = .fill
+        stack.spacing = 50
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
     public lazy var linearButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.text = "linear"
-        button.titleLabel?.textColor = #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)
+        button.setTitle("linear", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.backgroundColor = #colorLiteral(red: 1, green: 0.5062019825, blue: 0.7077280879, alpha: 1)
         return button
     }()
     public lazy var easeInButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.text = "ease in"
+        button.setTitle("ease in", for: .normal)
         button.titleLabel?.numberOfLines = 0
-        button.titleLabel?.textColor = #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
         return button
     }()
     public lazy var easeOutButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.text = "ease out"
+        button.setTitle("ease out", for: .normal)
         button.titleLabel?.numberOfLines = 0
-        button.titleLabel?.textColor = #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.backgroundColor = #colorLiteral(red: 0.9568627477, green: 0.6588235497, blue: 0.5450980663, alpha: 1)
         return button
     }()
     public lazy var easeInOutButton: UIButton = {
         let button = UIButton()
-        button.titleLabel?.text = "ease in out"
+        button.setTitle("ease in out", for: .normal)
         button.titleLabel?.numberOfLines = 0
-        button.titleLabel?.textColor = #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.backgroundColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
         return button
     }()
+    public lazy var resetButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("reset", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        return button
+    }()
+    public lazy var animateButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("animate", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+        return button
+    }()
+    public lazy var kirby1: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "kirby-star2")
+        return image
+    }()
+    public lazy var kirby2: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "kirby-star2")
+        return image
+    }()
+    public lazy var kirby3: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "kirby-star2")
+        return image
+    }()
+    public lazy var kirby4: UIImageView = {
+        let image = UIImageView()
+        image.image = #imageLiteral(resourceName: "kirby-star2")
+        return image
+    }()
     
+    //MARK: Inits
     override init(frame: CGRect) {
         super.init(frame: UIScreen.main.bounds)
         commonInit()
@@ -56,46 +104,92 @@ class AnimationsView: UIView {
         commonInit()
     }
     private func commonInit() {
-        linearButtonConstraints()
-        easeInButtonConstraints()
-        easeOutButtonConstraints()
-        easeInOutButtonConstraints()
+        animationButtonsStackConstraints()
+        resetAnimateStackConstraints()
+        kirby1Constraints()
+        kirby2Constraints()
+        kirby3Constraints()
+        kirby4Constraints()
     }
     
-    private func linearButtonConstraints() {
-        addSubview(linearButton)
-        linearButton.translatesAutoresizingMaskIntoConstraints = false
+    //MARK: Stack Functions
+    private func animationButtons() -> [UIButton] {
+        let arrayOfButtons = [linearButton, easeInButton, easeOutButton, easeInOutButton]
+        return arrayOfButtons
+    }
+    private func resetAnimateButtons() -> [UIButton] {
+        let array = [resetButton, animateButton]
+        return array
+    }
+    
+    //MARK: Constraints
+    private func animationButtonsStackConstraints() {
+        addSubview(animationButtonsStack)
+        animationButtonsStack.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            linearButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            linearButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
+            animationButtonsStack.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
+            animationButtonsStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            animationButtonsStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            animationButtonsStack.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
-    private func easeInButtonConstraints() {
-        addSubview(easeInButton)
-        easeInButton.translatesAutoresizingMaskIntoConstraints = false
+    private func resetAnimateStackConstraints() {
+        addSubview(resetAnimateButtonsStack)
+        resetAnimateButtonsStack.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            easeInButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            easeInButton.leadingAnchor.constraint(equalTo: linearButton.trailingAnchor, constant: 20)
+            resetAnimateButtonsStack.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            resetAnimateButtonsStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            resetAnimateButtonsStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
         ])
     }
-    private func easeOutButtonConstraints() {
-        addSubview(easeOutButton)
-        easeOutButton.translatesAutoresizingMaskIntoConstraints = false
+    private func kirby1Constraints() {
+        addSubview(kirby1)
+        kirby1.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            easeOutButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            easeOutButton.leadingAnchor.constraint(equalTo: easeOutButton.trailingAnchor, constant: 20)
+            kirby1.topAnchor.constraint(equalTo: animationButtonsStack.bottomAnchor, constant: 10),
+            kirby1.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            kirby1.widthAnchor.constraint(equalToConstant: 85),
+            kirby1.heightAnchor.constraint(equalToConstant: 85)
         ])
     }
-    private func easeInOutButtonConstraints() {
-        addSubview(easeInOutButton)
-        easeInOutButton.translatesAutoresizingMaskIntoConstraints = false
+    private func kirby2Constraints() {
+        addSubview(kirby2)
+        kirby2.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            easeInOutButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            easeInOutButton.leadingAnchor.constraint(equalTo: easeOutButton.trailingAnchor, constant: 20)
+            kirby2.topAnchor.constraint(equalTo: animationButtonsStack.bottomAnchor, constant: 10),
+            kirby2.leadingAnchor.constraint(equalTo: kirby1.trailingAnchor, constant: 10),
+            kirby2.widthAnchor.constraint(equalToConstant: 85),
+            kirby2.heightAnchor.constraint(equalToConstant: 85)
         ])
     }
+    private func kirby3Constraints() {
+        addSubview(kirby3)
+        kirby3.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            kirby3.topAnchor.constraint(equalTo: animationButtonsStack.bottomAnchor, constant: 10),
+            kirby3.leadingAnchor.constraint(equalTo: kirby2.trailingAnchor, constant: 10),
+            kirby3.widthAnchor.constraint(equalToConstant: 85),
+            kirby3.heightAnchor.constraint(equalToConstant: 85)
+        ])
+    }
+    private func kirby4Constraints() {
+        addSubview(kirby4)
+        kirby4.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            kirby4.topAnchor.constraint(equalTo: animationButtonsStack.bottomAnchor, constant: 10),
+            kirby4.leadingAnchor.constraint(equalTo: kirby3.trailingAnchor, constant: 10),
+            kirby4.widthAnchor.constraint(equalToConstant: 85),
+            kirby4.heightAnchor.constraint(equalToConstant: 85)
+        ])
+    }
+
+
+    
+    
 }
