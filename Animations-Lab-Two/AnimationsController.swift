@@ -85,10 +85,13 @@ class AnimationsController: UIViewController {
     
     @objc
     public func resetButtonPressed(_ sender: UIButton) {
-        self.animationsView.kirby1.transform = CGAffineTransform(translationX: 0.0, y: (originalConstraintKirby1.constant - topConstraintKirby1.constant))
-        self.animationsView.kirby2.transform = CGAffineTransform(translationX: 0.0, y: (originalConstraintKirby2.constant - topConstraintKirby2.constant))
-        self.animationsView.kirby3.transform = CGAffineTransform(translationX: 0.0, y: (originalConstraintKirby3.constant - topConstraintKirby3.constant))
-        self.animationsView.kirby4.transform = CGAffineTransform(translationX: 0.0, y: (originalConstraintKirby4.constant - topConstraintKirby4.constant))
+        UIView.animate(withDuration: 0.8, delay: 0.1, options: .curveLinear, animations: {
+            self.animationsView.kirby1.transform = CGAffineTransform(translationX: 0.0, y: (self.originalConstraintKirby1.constant - self.topConstraintKirby1.constant))
+            self.animationsView.kirby2.transform = CGAffineTransform(translationX: 0.0, y: (self.originalConstraintKirby2.constant - self.topConstraintKirby2.constant))
+            self.animationsView.kirby3.transform = CGAffineTransform(translationX: 0.0, y: (self.originalConstraintKirby3.constant - self.topConstraintKirby3.constant))
+            self.animationsView.kirby4.transform = CGAffineTransform(translationX: 0.0, y: (self.originalConstraintKirby4.constant - self.topConstraintKirby4.constant))
+        }, completion: nil)
+        
     }
     @objc
     public func animateButtonPressed(_ sender: UIButton) {
