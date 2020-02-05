@@ -9,7 +9,7 @@
 import UIKit
 
 class AnimationsController: UIViewController {
-
+    
     private var animationsView = AnimationsView()
     
     var isSelected = true
@@ -18,7 +18,7 @@ class AnimationsController: UIViewController {
     var originalConstraintKirby2: NSLayoutConstraint!
     var originalConstraintKirby3: NSLayoutConstraint!
     var originalConstraintKirby4: NSLayoutConstraint!
-
+    
     var topConstraintKirby1: NSLayoutConstraint!
     var topConstraintKirby2: NSLayoutConstraint!
     var topConstraintKirby3: NSLayoutConstraint!
@@ -36,6 +36,7 @@ class AnimationsController: UIViewController {
         animationsView.easeOutButton.addTarget(self, action: #selector(easeOutAnimation(_:)), for: .touchUpInside)
         animationsView.easeInOutButton.addTarget(self, action: #selector(easeInOutAnimation(_:)), for: .touchUpInside)
         animationsView.animateButton.addTarget(self, action: #selector(animateButtonPressed(_:)), for: .touchUpInside)
+        animationsView.resetButton.addTarget(self, action: #selector(resetButtonPressed(_:)), for: .touchUpInside)
     }
     
     @objc
@@ -84,21 +85,57 @@ class AnimationsController: UIViewController {
     
     @objc
     public func resetButtonPressed(_ sender: UIButton) {
-        
+        self.animationsView.kirby1.transform = CGAffineTransform(translationX: 0.0, y: (originalConstraintKirby1.constant - topConstraintKirby1.constant))
+        self.animationsView.kirby2.transform = CGAffineTransform(translationX: 0.0, y: (originalConstraintKirby2.constant - topConstraintKirby2.constant))
+        self.animationsView.kirby3.transform = CGAffineTransform(translationX: 0.0, y: (originalConstraintKirby3.constant - topConstraintKirby3.constant))
+        self.animationsView.kirby4.transform = CGAffineTransform(translationX: 0.0, y: (originalConstraintKirby4.constant - topConstraintKirby4.constant))
     }
     @objc
     public func animateButtonPressed(_ sender: UIButton) {
         linearAnimate()
+        easeInAnimate()
+        easeOutAnimate()
+        easeInOutAnimate()
     }
     
-    public func linearAnimate() {
-        topConstraintKirby1 = animationsView.kirby1.constraints.first
+    private func linearAnimate() {
         originalConstraintKirby1 = animationsView.kirby1.constraints.first
+        topConstraintKirby1 = animationsView.kirby1.constraints.first
         
         topConstraintKirby1.constant += 100
         
         UIView.animate(withDuration: 0.8, delay: 0.1, options: .curveLinear, animations: {
             self.animationsView.kirby1.transform = CGAffineTransform(translationX: 0.0, y: 500.0)
+        }, completion: nil)
+    }
+    private func easeInAnimate() {
+        topConstraintKirby2 = animationsView.kirby2.constraints.first
+        originalConstraintKirby2 = animationsView.kirby2.constraints.first
+        
+        topConstraintKirby2.constant += 100
+        
+        UIView.animate(withDuration: 0.8, delay: 0.1, options: .curveEaseIn, animations: {
+            self.animationsView.kirby2.transform = CGAffineTransform(translationX: 0.0, y: 500.0)
+        }, completion: nil)
+    }
+    private func easeOutAnimate() {
+        topConstraintKirby3 = animationsView.kirby3.constraints.first
+        originalConstraintKirby3 = animationsView.kirby3.constraints.first
+        
+        topConstraintKirby3.constant += 100
+        
+        UIView.animate(withDuration: 0.8, delay: 0.1, options: .curveLinear, animations: {
+            self.animationsView.kirby3.transform = CGAffineTransform(translationX: 0.0, y: 500.0)
+        }, completion: nil)
+    }
+    private func easeInOutAnimate() {
+        topConstraintKirby4 = animationsView.kirby4.constraints.first
+        originalConstraintKirby4 = animationsView.kirby4.constraints.first
+        
+        topConstraintKirby4.constant += 100
+        
+        UIView.animate(withDuration: 0.8, delay: 0.1, options: .curveLinear, animations: {
+            self.animationsView.kirby4.transform = CGAffineTransform(translationX: 0.0, y: 500.0)
         }, completion: nil)
     }
     
